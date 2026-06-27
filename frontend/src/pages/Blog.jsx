@@ -29,8 +29,8 @@ export default function Blog() {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative bg-navy-950 text-white pt-40 pb-24">
+      {/* Hero — overflow-hidden prevents absolute elements from causing horizontal scroll on mobile */}
+      <section className="relative bg-navy-950 text-white pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-950 to-navy-900" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[200px] bg-gold-500/5 blur-[80px] rounded-full pointer-events-none" />

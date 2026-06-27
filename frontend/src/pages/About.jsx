@@ -23,7 +23,7 @@ export default function About() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative bg-navy-950 text-white pt-40 pb-24">
+      <section className="relative bg-navy-950 text-white pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80" alt=""
             className="w-full h-full object-cover opacity-8" />
@@ -47,12 +47,13 @@ export default function About() {
         </motion.div>
       </section>
 
-      {/* Story */}
-      <section className="py-28 bg-navy-900" ref={storyRef}>
+      {/* Story — overflow-hidden fix for mobile horizontal scroll */}
+      <section className="py-28 bg-navy-900 overflow-hidden" ref={storyRef}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -40 }} animate={storyInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 40 }}
+              animate={storyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7 }}
               className="relative"
             >
@@ -67,7 +68,8 @@ export default function About() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 40 }} animate={storyInView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 40 }}
+              animate={storyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
               <span className="gold-label">My Story</span>
@@ -84,7 +86,8 @@ export default function About() {
               <ul className="space-y-3 mb-10">
                 {['Licensed Financial Advisor — Canada','Certified in Life Insurance & Investments','RESP & RRSP Specialist','Bilingual: English & Punjabi','500+ Families Helped Across Canada'].map((item, i) => (
                   <motion.li key={item}
-                    initial={{ opacity: 0, x: -15 }} animate={storyInView ? { opacity: 1, x: 0 } : {}}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={storyInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.4 + i * 0.07 }}
                     className="flex items-center gap-3"
                   >

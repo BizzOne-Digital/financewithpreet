@@ -84,8 +84,8 @@ export default function Services() {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative bg-navy-950 text-white pt-40 pb-24">
+      {/* Hero — overflow-hidden prevents absolute elements from causing horizontal scroll on mobile */}
+      <section className="relative bg-navy-950 text-white pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80" alt=""
             className="w-full h-full object-cover opacity-8" />
