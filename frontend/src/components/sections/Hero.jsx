@@ -12,11 +12,8 @@ const PlayIcon = () => (
 const ShieldIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
 )
-const UsersIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-)
-const StarIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+const CheckIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
 )
 const VolumeOffIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -30,12 +27,12 @@ const VolumeOnIcon = () => (
 )
 
 const DEFAULT_HERO = {
-  headline: "Your Family's Financial Future Starts Here",
-  subheadline: 'Trusted financial guidance for Canadian families — from life insurance and retirement planning to tax-free savings and mortgage protection.',
+  headline: 'Helping Canadian Families Buy Homes, Build Wealth, and Protect Their Future.',
+  subheadline: "Whether you're buying your first home, renewing your mortgage, investing for the future, or protecting your loved ones, we provide personalized financial guidance to help you make confident decisions every step of the way.",
   video: '/hero.mp4',
   fallbackImage: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1400&q=80',
-  ctaPrimary: 'Book Free Consultation',
-  ctaSecondary: 'Explore Services',
+  ctaPrimary: 'Book a Free Consultation',
+  ctaSecondary: 'Explore Our Services',
 }
 
 const fadeUp = {
@@ -128,10 +125,12 @@ export default function Hero() {
             variants={fadeUp} initial="hidden" animate="visible" custom={1}
             className="font-serif text-4xl md:text-6xl font-bold text-white leading-tight mb-6"
           >
-            {hero.headline.split(' ').slice(0, 4).join(' ')}{' '}
-            <span className="text-shimmer">
-              {hero.headline.split(' ').slice(4).join(' ')}
-            </span>
+            {(() => {
+              const h = hero.headline
+              const idx = h.indexOf('Buy')
+              if (idx > 0) return (<>{h.slice(0, idx)}<span className="text-shimmer">{h.slice(idx)}</span></>)
+              return <span className="text-shimmer">{h}</span>
+            })()}
           </motion.h1>
 
           {/* Gold divider */}
@@ -161,24 +160,17 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
+          {/* Trust Icons */}
           <motion.div
             variants={fadeUp} initial="hidden" animate="visible" custom={4}
-            className="flex flex-wrap justify-center gap-8"
+            className="flex flex-wrap justify-center gap-x-8 gap-y-3"
           >
-            {[
-              { icon: <UsersIcon />, value: '500+', label: 'Families Helped' },
-              { icon: <ShieldIcon />, value: '10+', label: 'Years Experience' },
-              { icon: <StarIcon />, value: '4.9★', label: 'Client Rating' },
-            ].map(({ icon, value, label }) => (
-              <div key={label} className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gold-500/15 border border-gold-500/20 rounded-full flex items-center justify-center text-gold-400">
-                  {icon}
-                </div>
-                <div className="text-left">
-                  <p className="font-bold text-xl text-white leading-none">{value}</p>
-                  <p className="text-gray-400 text-xs">{label}</p>
-                </div>
+            {['Mortgages', 'Wealth Planning', 'Insurance'].map(label => (
+              <div key={label} className="flex items-center gap-2 text-gray-200">
+                <span className="w-6 h-6 bg-gold-500/15 border border-gold-500/30 rounded-full flex items-center justify-center text-gold-400">
+                  <CheckIcon />
+                </span>
+                <span className="font-medium text-sm">{label}</span>
               </div>
             ))}
           </motion.div>

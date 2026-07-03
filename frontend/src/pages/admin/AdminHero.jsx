@@ -16,13 +16,20 @@ export default function AdminHero() {
     subheadline: '',
     video: '',
     fallbackImage: '',
-    ctaPrimary: 'Book Free Consultation',
-    ctaSecondary: 'Explore Services',
+    ctaPrimary: 'Book a Free Consultation',
+    ctaSecondary: 'Explore Our Services',
+    coachImage: '',
+    coachName: 'Preet Singh',
+    coachRole: 'Personal Finance Coach',
+    coachBio: "Hi, I'm Preet Kamal Singh. I founded Finance With Preet because I believe financial decisions shouldn't be confusing.\n\nWhether you're buying a home, planning for retirement, or protecting your family, my goal is to provide honest advice, personalized solutions, and long-term support that helps you achieve financial confidence.",
+    coachCta: 'Learn More About Preet',
   })
   const [uploading, setUploading] = useState(false)
   const [uploadingImg, setUploadingImg] = useState(false)
+  const [uploadingCoach, setUploadingCoach] = useState(false)
   const videoRef = useRef()
   const imgRef = useRef()
+  const coachRef = useRef()
 
   useEffect(() => {
     API.get('/hero').then(r => {
@@ -56,6 +63,20 @@ export default function AdminHero() {
       toast.success('Fallback image uploaded!')
     } catch { toast.error('Upload failed') }
     finally { setUploadingImg(false) }
+  }
+
+  const handleCoachUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setUploadingCoach(true)
+    const fd = new FormData()
+    fd.append('image', file)
+    try {
+      const { data } = await API.post('/upload', fd)
+      setForm(f => ({ ...f, coachImage: data.url }))
+      toast.success('Coach photo uploaded!')
+    } catch { toast.error('Upload failed') }
+    finally { setUploadingCoach(false) }
   }
 
   const handleSave = async (e) => {
@@ -160,8 +181,59 @@ export default function AdminHero() {
             </ul>
           </div>
 
+          {/* ── Meet the Coach Section ── */}
+          <div className="pt-4 mt-2 border-t border-gray-200">
+            <h2 className="font-serif text-xl font-bold text-primary-800 mb-1">Meet Your Personal Finance Coach</h2>
+            <p className="text-gray-500 text-sm mb-5">Manage the "Meet Preet" section shown on the homepage.</p>
+
+            {/* Coach photo */}
+            <div className="p-5 border-2 border-dashed border-gold-200 rounded-2xl bg-gold-50/30 mb-5">
+              <label className="block text-sm font-semibold text-gold-600 mb-1">Coach / Preet's Photo</label>
+              <p className="text-xs text-gray-400 mb-3">A professional headshot. Portrait (4:5) works best.</p>
+              <div className="flex gap-3 items-center">
+                <input value={form.coachImage} onChange={e => setForm({ ...form, coachImage: e.target.value })}
+                  className="flex-1 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                  placeholder="Photo URL or upload" />
+                <input ref={coachRef} type="file" accept="image/*" onChange={handleCoachUpload} className="hidden" />
+                <button type="button" onClick={() => coachRef.current.click()} disabled={uploadingCoach}
+                  className="flex items-center gap-2 px-4 py-3 border border-gold-400 text-gold-600 hover:bg-gold-50 rounded-xl text-sm font-medium transition-colors disabled:opacity-60 whitespace-nowrap">
+                  <UploadIcon /> {uploadingCoach ? 'Uploading...' : 'Upload Photo'}
+                </button>
+              </div>
+              {form.coachImage && (
+                <img src={form.coachImage} alt="Coach" className="mt-3 w-32 h-40 object-cover rounded-xl border border-gray-200" />
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <input value={form.coachName} onChange={e => setForm({ ...form, coachName: e.target.value })}
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Role / Title</label>
+                <input value={form.coachRole} onChange={e => setForm({ ...form, coachRole: e.target.value })}
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+              <textarea value={form.coachBio} onChange={e => setForm({ ...form, coachBio: e.target.value })} rows={6}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+              <p className="text-xs text-gray-400 mt-1">Tip: leave a blank line between paragraphs.</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
+              <input value={form.coachCta} onChange={e => setForm({ ...form, coachCta: e.target.value })}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500" />
+            </div>
+          </div>
+
           <button type="submit" className="btn-primary px-10 py-3 text-base">
-            Save Hero Section
+            Save Changes
           </button>
         </form>
       </div>

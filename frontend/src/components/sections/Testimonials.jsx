@@ -37,11 +37,7 @@ export default function Testimonials() {
   ]
 
   return (
-    <section className="py-28 bg-navy-950 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03]"
-        style={{ backgroundImage: 'linear-gradient(rgba(245,158,11,1) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-gold-500/5 blur-[80px] rounded-full" />
-
+    <section className="py-28 bg-gray-50 relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,10 +46,10 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="gold-label">Testimonials</span>
-          <h2 className="section-title">What Canadian Families Say</h2>
+          <span className="text-gold-600 font-semibold text-sm uppercase tracking-widest mb-3 inline-block">Client Testimonials</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-navy-900 mb-4">Trusted by Canadian Families</h2>
           <div className="w-16 h-0.5 bg-gold-500 mx-auto mb-5" />
-          <p className="section-subtitle">Real stories from real families whose lives we've helped transform financially.</p>
+          <p className="text-gray-600 text-lg mb-0 max-w-2xl mx-auto leading-relaxed">Real stories from real families whose lives we've helped transform financially.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -63,20 +59,20 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative bg-navy-800/70 border rounded-2xl p-7 transition-all duration-300 ${
-                i === 1 ? 'border-gold-500/40 shadow-gold' : 'border-navy-600/40 hover:border-gold-500/20'
+              className={`relative bg-white border rounded-2xl p-7 transition-all duration-300 ${
+                i === 1 ? 'border-gold-500/40 shadow-xl' : 'border-gray-200 hover:border-gold-500/30 hover:shadow-lg'
               }`}
             >
               {i === 1 && <div className="absolute top-0 left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-gold-500/60 to-transparent" />}
               <QuoteIcon />
-              <p className="text-gray-300 leading-relaxed my-4 text-sm">{t.text}</p>
+              <p className="text-gray-700 leading-relaxed my-4 text-sm">{t.text}</p>
               <div className="flex gap-0.5 mb-4">
                 {[...Array(t.rating)].map((_, j) => <StarIcon key={j} />)}
               </div>
-              <div className="flex items-center gap-3 border-t border-navy-700/60 pt-4">
+              <div className="flex items-center gap-3 border-t border-gray-100 pt-4">
                 <img src={t.image} alt={t.name} className="w-11 h-11 rounded-full object-cover border-2 border-gold-500/30" />
                 <div>
-                  <p className="font-semibold text-white text-sm">{t.name}</p>
+                  <p className="font-semibold text-navy-900 text-sm">{t.name}</p>
                   <p className="text-gray-500 text-xs">{t.location}</p>
                 </div>
               </div>
@@ -86,19 +82,19 @@ export default function Testimonials() {
 
         <div className="flex justify-center items-center gap-4">
           <button onClick={prev}
-            className="w-10 h-10 rounded-full border border-navy-600/60 flex items-center justify-center text-gray-400 hover:border-gold-500/50 hover:text-gold-400 transition-all duration-200">
+            className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gold-500/60 hover:text-gold-600 transition-all duration-200">
             <ChevronLeft />
           </button>
           <div className="flex items-center gap-2">
             {testimonials.map((_, i) => (
               <button key={i} onClick={() => setCurrent(i)}
                 className={`rounded-full transition-all duration-300 ${
-                  i === current ? 'bg-gold-500 w-6 h-2' : 'bg-navy-600 w-2 h-2 hover:bg-navy-400'
+                  i === current ? 'bg-gold-500 w-6 h-2' : 'bg-gray-300 w-2 h-2 hover:bg-gray-400'
                 }`} />
             ))}
           </div>
           <button onClick={next}
-            className="w-10 h-10 rounded-full border border-navy-600/60 flex items-center justify-center text-gray-400 hover:border-gold-500/50 hover:text-gold-400 transition-all duration-200">
+            className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-gray-500 hover:border-gold-500/60 hover:text-gold-600 transition-all duration-200">
             <ChevronRight />
           </button>
         </div>

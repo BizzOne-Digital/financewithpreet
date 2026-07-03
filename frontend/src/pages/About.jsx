@@ -47,6 +47,41 @@ export default function About() {
         </motion.div>
       </section>
 
+      {/* About the Business */}
+      <section className="py-24 bg-navy-950 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-gold-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="gold-label">Who We Are</span>
+          <h2 className="section-title">A Holistic Approach to<br />Your Family's Finances</h2>
+          <div className="w-16 h-0.5 bg-gold-500 mx-auto mb-8" />
+          <div className="space-y-5 text-gray-300 text-[15px] md:text-base leading-relaxed">
+            <p>
+              Finance With Preet is a Canadian personal finance coaching and financial services business dedicated to helping individuals and families make informed financial decisions with confidence.
+            </p>
+            <p>
+              Unlike traditional mortgage brokers or insurance agents who focus on selling a single product, Finance With Preet takes a holistic approach — helping you understand how every financial decision impacts your long-term goals.
+            </p>
+            <p>
+              Our goal is to become your <span className="text-gold-400 font-semibold">trusted long-term financial partner</span> — not just someone you contact when you need a mortgage.
+            </p>
+          </div>
+
+          {/* Three core pillars */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-12">
+            {[
+              { t: 'Mortgages', d: 'The right home financing at every stage.' },
+              { t: 'Insurance', d: 'Protecting what matters most to your family.' },
+              { t: 'Investments', d: 'Building lasting, long-term wealth.' },
+            ].map(p => (
+              <div key={p.t} className="bg-navy-800/60 border border-navy-600/40 hover:border-gold-500/30 rounded-2xl p-6 transition-all duration-300">
+                <p className="font-serif text-lg font-bold text-gold-400 mb-2">{p.t}</p>
+                <p className="text-gray-400 text-sm leading-relaxed">{p.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Story — overflow-hidden fix for mobile horizontal scroll */}
       <section className="py-28 bg-navy-900 overflow-hidden" ref={storyRef}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
