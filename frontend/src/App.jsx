@@ -5,6 +5,7 @@ import FloatingActions from './components/common/FloatingActions'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
+import HomeFinancing from './pages/HomeFinancing'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import FAQ from './pages/FAQ'
@@ -15,7 +16,6 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminBlogs from './pages/admin/AdminBlogs'
 import AdminLeads from './pages/admin/AdminLeads'
 import AdminBookings from './pages/admin/AdminBookings'
-import AdminHero from './pages/admin/AdminHero'
 import AdminServices from './pages/admin/AdminServices'
 import AdminSubscribers from './pages/admin/AdminSubscribers'
 import ProtectedRoute from './components/common/ProtectedRoute'
@@ -30,6 +30,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/home-financing" element={<HomeFinancing />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/faq" element={<FAQ />} />
@@ -40,7 +41,6 @@ export default function App() {
         <Route path="/admin/blogs" element={<ProtectedRoute><AdminBlogs /></ProtectedRoute>} />
         <Route path="/admin/leads" element={<ProtectedRoute><AdminLeads /></ProtectedRoute>} />
         <Route path="/admin/bookings" element={<ProtectedRoute><AdminBookings /></ProtectedRoute>} />
-        <Route path="/admin/hero" element={<ProtectedRoute><AdminHero /></ProtectedRoute>} />
         <Route path="/admin/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
         <Route path="/admin/subscribers" element={<ProtectedRoute><AdminSubscribers /></ProtectedRoute>} />
       </Routes>

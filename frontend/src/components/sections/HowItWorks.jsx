@@ -89,7 +89,7 @@ export default function HowItWorks() {
                     {step.num.slice(1)}
                   </span>
                 </div>
-                <h3 className="font-serif text-base font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">
+                <h3 className="font-serif text-base font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors min-h-[3rem] flex items-center justify-center">
                   {step.title}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{step.desc}</p>

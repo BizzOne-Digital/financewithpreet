@@ -4,6 +4,9 @@ import { motion } from 'framer-motion'
 const ArrowRight = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 )
+const CheckIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+)
 const HomeIcon = () => (
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
 )
@@ -19,13 +22,15 @@ const pillars = [
     icon: <HomeIcon />,
     title: 'Home Ownership',
     desc: 'Helping families secure the right mortgage solutions.',
+    items: ['First-Time Home Buyers', 'Mortgage Renewals', 'Refinancing', 'Investment Properties', 'HELOC'],
     cta: 'Explore Home Financing',
-    to: '/services#home-financing',
+    to: '/home-financing',
   },
   {
     icon: <ChartIcon />,
     title: 'Wealth Building',
     desc: 'Creating long-term financial growth through smart investing.',
+    items: ['Retirement Planning', 'Tax-Efficient Investing', 'RESP', 'Wealth Building Strategies', 'Estate Planning'],
     cta: 'Explore Wealth Planning',
     to: '/services#wealth-planning',
   },
@@ -33,6 +38,7 @@ const pillars = [
     icon: <ShieldIcon />,
     title: 'Financial Protection',
     desc: 'Protecting what matters most through insurance planning.',
+    items: ['Life Insurance', 'Critical Illness Insurance', 'Disability Insurance', 'Visitors to Canada Insurance', 'Group Insurance'],
     cta: 'Explore Insurance Solutions',
     to: '/services#financial-protection',
   },
@@ -40,7 +46,7 @@ const pillars = [
 
 export default function FinancialJourney() {
   return (
-    <section className="py-28 bg-white relative overflow-hidden">
+    <section className="py-28 bg-gray-50 relative overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
@@ -50,7 +56,8 @@ export default function FinancialJourney() {
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-navy-900 mb-4">Every Financial Goal<br />Starts With a Plan</h2>
           <div className="w-16 h-0.5 bg-gold-500 mx-auto mb-5" />
           <p className="text-gray-600 text-lg mb-0 max-w-2xl mx-auto leading-relaxed">
-            My goal is simple: help you buy your home, build your wealth, and protect your future.
+            My goal is simple.<br />
+            Help you buy your home, build your wealth, and protect your future.
           </p>
         </motion.div>
 
@@ -60,17 +67,28 @@ export default function FinancialJourney() {
               key={p.title}
               initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}>
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              className="group flex flex-col h-full bg-white border border-gray-200 rounded-2xl p-8 hover:border-gold-500/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-400 text-center">
+              <div className="w-16 h-16 mx-auto bg-gold-500/10 rounded-2xl flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-all duration-300">
+                {p.icon}
+              </div>
+              <h3 className="font-serif text-xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">{p.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">{p.desc}</p>
+
+              <ul className="space-y-3 mb-8 flex-1 text-left w-full">
+                {p.items.map(item => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="w-5 h-5 bg-gold-500/15 rounded-full flex items-center justify-center text-gold-600 flex-shrink-0">
+                      <CheckIcon />
+                    </span>
+                    <span className="text-navy-800 text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
               <Link to={p.to}
-                className="group block h-full bg-white border border-gray-200 rounded-2xl p-8 hover:border-gold-500/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-400 text-center">
-                <div className="w-16 h-16 mx-auto bg-gold-500/10 rounded-2xl flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-all duration-300">
-                  {p.icon}
-                </div>
-                <h3 className="font-serif text-xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">{p.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-5">{p.desc}</p>
-                <span className="inline-flex items-center gap-2 text-gold-600 font-semibold text-sm group-hover:gap-3 transition-all">
-                  {p.cta} <ArrowRight />
-                </span>
+                className="inline-flex items-center gap-2 text-gold-600 font-semibold text-sm group-hover:gap-3 transition-all mt-auto self-center">
+                {p.cta} <ArrowRight />
               </Link>
             </motion.div>
           ))}

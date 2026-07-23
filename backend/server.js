@@ -26,7 +26,6 @@ app.use('/api/blogs', require('./routes/blogs'))
 app.use('/api/leads', require('./routes/leads'))
 app.use('/api/bookings', require('./routes/bookings'))
 app.use('/api/newsletter', require('./routes/newsletter'))
-app.use('/api/hero', require('./routes/hero'))
 app.use('/api/services', require('./routes/services'))
 app.use('/api/upload', require('./routes/upload'))
 

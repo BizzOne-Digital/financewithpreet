@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import API from '../../utils/api'
 
 const ArrowRight = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -30,8 +28,8 @@ const badges = [
   { icon: <PinIcon />, label: 'Serving Ottawa, Kanata & Surrounding Areas' },
 ]
 
-const DEFAULTS = {
-  coachImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=700&q=80',
+const COACH = {
+  coachImage: '/preet.png',
   coachName: 'Preet Singh',
   coachRole: 'Personal Finance Coach',
   coachBio: "Hi, I'm Preet Kamal Singh. I founded Finance With Preet because I believe financial decisions shouldn't be confusing.\n\nWhether you're buying a home, planning for retirement, or protecting your family, my goal is to provide honest advice, personalized solutions, and long-term support that helps you achieve financial confidence.",
@@ -39,23 +37,7 @@ const DEFAULTS = {
 }
 
 export default function MeetCoach() {
-  const [data, setData] = useState(DEFAULTS)
-
-  useEffect(() => {
-    API.get('/hero').then(r => {
-      if (r.data) {
-        setData(d => ({
-          coachImage: r.data.coachImage || d.coachImage,
-          coachName: r.data.coachName || d.coachName,
-          coachRole: r.data.coachRole || d.coachRole,
-          coachBio: r.data.coachBio || d.coachBio,
-          coachCta: r.data.coachCta || d.coachCta,
-        }))
-      }
-    }).catch(() => {})
-  }, [])
-
-  const paragraphs = (data.coachBio || '').split(/\n\s*\n/).filter(Boolean)
+  const paragraphs = COACH.coachBio.split(/\n\s*\n/).filter(Boolean)
 
   return (
     <section className="py-28 bg-white relative overflow-hidden">
@@ -72,28 +54,22 @@ export default function MeetCoach() {
           >
             <div className="relative rounded-3xl overflow-hidden border border-gray-200 shadow-xl max-w-md mx-auto">
               <img
-                src={data.coachImage}
-                alt={`${data.coachName} — ${data.coachRole}`}
+                src={COACH.coachImage}
+                alt={`${COACH.coachName} — ${COACH.coachRole}`}
                 className="w-full h-full object-cover aspect-[4/5]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
 
               {/* Name card */}
               <div className="absolute bottom-5 left-5 right-5 bg-white/90 backdrop-blur-md border border-gold-500/20 rounded-2xl px-5 py-4">
-                <p className="font-serif font-bold text-navy-900 text-lg leading-none">{data.coachName}</p>
-                <p className="text-gold-600 text-sm italic mt-1">{data.coachRole}</p>
+                <p className="font-serif font-bold text-navy-900 text-lg leading-none">{COACH.coachName}</p>
+                <p className="text-gold-600 text-sm italic mt-1">{COACH.coachRole}</p>
               </div>
             </div>
           </motion.div>
 
           {/* Right — content */}
           <div>
-            <motion.span
-              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.5 }}
-              className="text-gold-600 font-semibold text-sm uppercase tracking-widest mb-3 inline-block">
-              Meet Preet
-            </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
@@ -112,21 +88,21 @@ export default function MeetCoach() {
               {paragraphs.map((p, i) => (
                 <p key={i}>
                   {i === 0
-                    ? <><span className="text-navy-900 font-semibold">{p.split('.')[0]}.</span>{p.slice(p.indexOf('.') + 1)}</>
+                    ? <><span className="text-navy-900 font-semibold">{p.split('.')[0]}.</span><br />{p.slice(p.indexOf('.') + 1).trim()}</>
                     : p}
                 </p>
               ))}
             </motion.div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap gap-3 mb-9">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-9">
               {badges.map((b, i) => (
                 <motion.div
                   key={b.label}
                   initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
                   className="flex items-center gap-2 bg-gray-50 border border-gray-200 hover:border-gold-500/40 rounded-full pl-3 pr-4 py-2 transition-colors duration-300">
-                  <span className="text-gold-600">{b.icon}</span>
+                  <span className="text-gold-600 shrink-0">{b.icon}</span>
                   <span className="text-navy-800 text-xs font-medium">{b.label}</span>
                 </motion.div>
               ))}
@@ -136,7 +112,7 @@ export default function MeetCoach() {
               initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.5 }}>
               <Link to="/about" className="btn-primary inline-flex items-center gap-2">
-                {data.coachCta} <ArrowRight />
+                {COACH.coachCta} <ArrowRight />
               </Link>
             </motion.div>
           </div>

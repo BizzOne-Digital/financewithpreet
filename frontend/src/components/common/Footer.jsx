@@ -1,7 +1,4 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import API from '../../utils/api'
-import toast from 'react-hot-toast'
 
 const InstagramIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -41,31 +38,13 @@ const quickLinks = [
   ['Financial Calculators', '/blog'],
 ]
 const serviceLinks = [
-  ['Home Financing', '/services#home-financing'],
+  ['Home Financing', '/home-financing'],
   ['Wealth Planning', '/services#wealth-planning'],
   ['Financial Protection', '/services#financial-protection'],
   ['Visitor to Canada Insurance', '/services#financial-protection'],
 ]
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-
-  const subscribe = async (e) => {
-    e.preventDefault()
-    if (!email) return
-    setLoading(true)
-    try {
-      await API.post('/newsletter', { email })
-      toast.success('Subscribed! Thank you.')
-      setEmail('')
-    } catch {
-      toast.error('Something went wrong. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
     <footer className="bg-navy-950 text-white border-t border-gold-500/10">
       {/* Top decorative gold line */}
@@ -77,9 +56,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-5">
-              <img src="/Transparent 2.png" alt="Finance With Preet" className="h-11 w-auto object-contain" />
+              <img src="/Transparent 2.png" alt="Finance With Preet" className="h-16 w-auto object-contain" />
             </Link>
-            <p className="text-gold-400 font-serif text-sm italic mb-4">
+            <p className="text-gold-400 font-semibold text-sm uppercase tracking-wide mb-4">
               Securing Your Today. Building Your Tomorrow.
             </p>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
@@ -154,19 +133,6 @@ export default function Footer() {
                 Ottawa, Kanata &amp; Surrounding Areas
               </li>
             </ul>
-
-            <h4 className="font-semibold text-gold-400 mb-3 uppercase tracking-wider text-xs">Newsletter</h4>
-            <form onSubmit={subscribe} className="flex flex-col gap-2">
-              <input
-                type="email" required value={email} onChange={e => setEmail(e.target.value)}
-                placeholder="Your email address"
-                className="bg-navy-800 border border-navy-600/50 focus:border-gold-500/60 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-gray-500 outline-none transition-colors"
-              />
-              <button type="submit" disabled={loading}
-                className="bg-gold-500 hover:bg-gold-400 text-navy-900 text-sm font-bold px-4 py-2.5 rounded-lg transition-all duration-300 shadow-gold hover:shadow-gold-lg disabled:opacity-60">
-                {loading ? 'Subscribing…' : 'Subscribe'}
-              </button>
-            </form>
           </div>
         </div>
       </div>

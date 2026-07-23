@@ -2,7 +2,6 @@ import Layout from '../components/common/Layout'
 import Hero from '../components/sections/Hero'
 import MeetCoach from '../components/sections/MeetCoach'
 import FinancialJourney from '../components/sections/FinancialJourney'
-import ServicePillars from '../components/sections/ServicePillars'
 import WhyUs from '../components/sections/WhyUs'
 import HowItWorks from '../components/sections/HowItWorks'
 import LatestBlogs from '../components/sections/LatestBlogs'
@@ -20,11 +19,8 @@ export default function Home() {
         <MeetCoach />
       </div>
 
-      {/* Section 3 — Your Financial Journey */}
+      {/* Section 3 — Your Financial Journey (merged with former Section 4 services list) */}
       <FinancialJourney />
-
-      {/* Section 4 — How We Can Help (Services) */}
-      <ServicePillars />
 
       {/* Section 5 — Why Families Choose Finance With Preet */}
       <WhyUs />

@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const navItems = [
   { label: 'Dashboard', path: '/admin/dashboard', icon: 'grid' },
-  { label: 'Hero Section', path: '/admin/hero', icon: 'image' },
   { label: 'Services', path: '/admin/services', icon: 'briefcase' },
   { label: 'Blog Posts', path: '/admin/blogs', icon: 'file-text' },
   { label: 'Leads', path: '/admin/leads', icon: 'users' },

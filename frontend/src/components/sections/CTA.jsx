@@ -17,7 +17,12 @@ const WhatsAppIcon = () => (
   </svg>
 )
 
-export default function CTA() {
+export default function CTA({
+  label = 'Take the First Step',
+  heading = <>Ready to Secure Your Family's<br /><span className="text-gold-400">Financial Future?</span></>,
+  text = <>Let's build your financial future together.<br />Book your free 30-minute consultation today — no commitment, no pressure, just honest expert advice for your family.</>,
+  children,
+}) {
   return (
     <section className="py-28 bg-navy-900 relative overflow-hidden">
       <div className="absolute inset-0">
@@ -35,28 +40,31 @@ export default function CTA() {
         transition={{ duration: 0.7 }}
         className="relative z-10 max-w-3xl mx-auto px-4 text-center"
       >
-        <span className="gold-label">Take the First Step</span>
+        <span className="gold-label">{label}</span>
         <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-          Ready to Secure Your Family's<br />
-          <span className="text-gold-400">Financial Future?</span>
+          {heading}
         </h2>
         <div className="w-16 h-0.5 bg-gold-500 mx-auto mb-6" />
         <p className="text-gray-300 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-          Let's build your financial future together. Book your free 30-minute consultation today — no commitment, no pressure, just honest expert advice for your family.
+          {text}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/booking"
-            className="inline-flex items-center justify-center gap-3 btn-primary text-base px-8 py-4">
-            <CalendarIcon /> Book a Free Consultation
-          </Link>
-          <a href="tel:8732882055"
-            className="inline-flex items-center justify-center gap-3 border-2 border-gold-500/40 text-gold-300 hover:border-gold-400 hover:bg-gold-500/10 font-bold px-8 py-4 rounded-lg transition-all duration-300 text-base backdrop-blur-sm">
-            <PhoneIcon /> (873) 288-2055
-          </a>
-          <a href="https://wa.me/18732882055" target="_blank" rel="noreferrer"
-            className="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 text-base">
-            <WhatsAppIcon /> WhatsApp
-          </a>
+          {children || (
+            <>
+              <Link to="/booking"
+                className="inline-flex items-center justify-center gap-3 btn-primary text-base px-8 py-4">
+                <CalendarIcon /> Book a Free Consultation
+              </Link>
+              <a href="tel:8732882055"
+                className="inline-flex items-center justify-center gap-3 border-2 border-gold-500 bg-gold-500/10 text-gold-300 hover:border-gold-400 hover:bg-gold-500/20 font-bold px-8 py-4 rounded-lg transition-all duration-300 text-base backdrop-blur-sm shadow-gold">
+                <PhoneIcon /> (873) 288-2055
+              </a>
+              <a href="https://wa.me/18732882055" target="_blank" rel="noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 text-base">
+                <WhatsAppIcon /> WhatsApp
+              </a>
+            </>
+          )}
         </div>
       </motion.div>
     </section>

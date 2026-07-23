@@ -23,19 +23,10 @@ const ArrowRight = () => (
 const simpleLinks = [
   { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
+  { name: 'Home Financing', path: '/home-financing' },
 ]
 
 const dropdowns = [
-  {
-    name: 'Home Financing',
-    viewAll: '/services#home-financing',
-    items: [
-      { name: 'Overview', path: '/services#home-financing' },
-      { name: 'Buying a Home', path: '/services#home-financing' },
-      { name: 'Renewing a Mortgage', path: '/services#home-financing' },
-      { name: 'Refinancing', path: '/services#home-financing' },
-    ],
-  },
   {
     name: 'Wealth Planning',
     viewAll: '/services#wealth-planning',
@@ -88,30 +79,30 @@ export default function Navbar() {
         ? 'bg-navy-950/95 backdrop-blur-xl border-b border-gold-500/10 shadow-navy'
         : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20 gap-6">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center group shrink-0">
+          <Link to="/" className="flex items-center group shrink-0 ml-2 md:ml-4">
             <img src="/Transparent 2.png" alt="Finance With Preet"
-              className="h-9 md:h-10 w-auto object-contain" />
+              className="h-11 md:h-12 w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5 shrink-0">
             {simpleLinks.map(l => (
               <Link key={l.path} to={l.path}
-                className={`relative font-medium text-sm transition-colors duration-200 py-1
+                className={`relative font-medium text-sm whitespace-nowrap transition-colors duration-200 py-1
                   ${location.pathname === l.path ? 'text-gold-400' : 'text-gray-300 hover:text-gold-300'}`}>
                 {l.name}
               </Link>
             ))}
 
             {dropdowns.map(d => (
-              <div key={d.name} className="relative"
+              <div key={d.name} className="relative shrink-0"
                 onMouseEnter={() => setActiveDrop(d.name)}
                 onMouseLeave={() => setActiveDrop(null)}>
-                <button className="flex items-center gap-1.5 font-medium text-sm text-gray-300 hover:text-gold-300 transition-colors duration-200 py-1">
+                <button className="flex items-center gap-1.5 font-medium text-sm whitespace-nowrap text-gray-300 hover:text-gold-300 transition-colors duration-200 py-1">
                   {d.name}
                   <span className={`transition-transform duration-200 ${activeDrop === d.name ? 'rotate-180 text-gold-400' : ''}`}><ChevronDown /></span>
                 </button>
@@ -146,11 +137,11 @@ export default function Navbar() {
             ))}
 
             <Link to="/contact"
-              className={`font-medium text-sm transition-colors duration-200 py-1 ${location.pathname === '/contact' ? 'text-gold-400' : 'text-gray-300 hover:text-gold-300'}`}>
+              className={`font-medium text-sm whitespace-nowrap transition-colors duration-200 py-1 ${location.pathname === '/contact' ? 'text-gold-400' : 'text-gray-300 hover:text-gold-300'}`}>
               Contact
             </Link>
 
-            <Link to="/booking" className="btn-primary text-sm py-2.5 px-5 whitespace-nowrap">
+            <Link to="/booking" className="btn-primary text-sm py-2.5 px-5 whitespace-nowrap shrink-0">
               Book Consultation
             </Link>
           </div>

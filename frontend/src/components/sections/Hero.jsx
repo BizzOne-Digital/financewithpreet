@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import API from '../../utils/api'
 
 const ChevronDownIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -12,25 +10,20 @@ const PlayIcon = () => (
 const ShieldIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
 )
-const CheckIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+const HomeIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5a1 1 0 0 0 1 1H17.5a1 1 0 0 0 1-1V10"/></svg>
 )
-const VolumeOffIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-  </svg>
+const TrendingUpIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>
 )
-const VolumeOnIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-  </svg>
+const InsuranceShieldIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11.5 14.5 15 10"/></svg>
 )
 
-const DEFAULT_HERO = {
+const HERO = {
   headline: 'Helping Canadian Families Buy Homes, Build Wealth, and Protect Their Future.',
   subheadline: "Whether you're buying your first home, renewing your mortgage, investing for the future, or protecting your loved ones, we provide personalized financial guidance to help you make confident decisions every step of the way.",
-  video: '/hero.mp4',
-  fallbackImage: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1400&q=80',
+  image: '/hero.png',
   ctaPrimary: 'Book a Free Consultation',
   ctaSecondary: 'Explore Our Services',
 }
@@ -44,50 +37,12 @@ const fadeUp = {
 }
 
 export default function Hero() {
-  const [hero, setHero] = useState(DEFAULT_HERO)
-  const [muted, setMuted] = useState(true)
-  const [videoLoaded, setVideoLoaded] = useState(false)
-  const [videoError, setVideoError] = useState(false)
-  const videoRef = useRef(null)
-
-  useEffect(() => {
-    API.get('/hero').then(r => {
-      if (r.data) setHero({ ...DEFAULT_HERO, ...r.data })
-    }).catch(() => {})
-  }, [])
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !muted
-      setMuted(!muted)
-    }
-  }
-
-  const isVideo = (url) => url && (url.endsWith('.mp4') || url.endsWith('.webm'))
-  const mediaSrc = hero.video || hero.image || DEFAULT_HERO.video
-
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-navy-950">
 
-      {/* ── Background Media ── */}
+      {/* ── Background Image ── */}
       <div className="absolute inset-0">
-        {isVideo(mediaSrc) && !videoError ? (
-          <>
-            <video
-              ref={videoRef}
-              src={mediaSrc}
-              autoPlay loop muted playsInline
-              onCanPlay={() => setVideoLoaded(true)}
-              onError={() => setVideoError(true)}
-              className={`w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? 'opacity-100' : 'opacity-0'}`}
-            />
-            {!videoLoaded && (
-              <img src={hero.fallbackImage} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
-            )}
-          </>
-        ) : (
-          <img src={isVideo(mediaSrc) ? hero.fallbackImage : mediaSrc} alt="Hero" className="w-full h-full object-cover" />
-        )}
+        <img src={HERO.image} alt="Family enjoying their home" className="w-full h-full object-cover" />
 
         {/* Multi-layer dark overlay — navy luxury feel */}
         <div className="absolute inset-0 bg-navy-950/70" />
@@ -98,14 +53,6 @@ export default function Hero() {
         {/* Blue glow — top right */}
         <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-navy-500/20 blur-[120px] rounded-full" />
       </div>
-
-      {/* Mute Toggle */}
-      {isVideo(mediaSrc) && !videoError && videoLoaded && (
-        <button onClick={toggleMute} title={muted ? 'Unmute' : 'Mute'}
-          className="absolute bottom-8 right-8 z-20 w-9 h-9 bg-white/5 hover:bg-gold-500/20 backdrop-blur-sm border border-white/10 hover:border-gold-500/40 rounded-full flex items-center justify-center text-gray-300 hover:text-gold-400 transition-all duration-300">
-          {muted ? <VolumeOffIcon /> : <VolumeOnIcon />}
-        </button>
-      )}
 
       {/* ── Main Content ── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
@@ -126,7 +73,7 @@ export default function Hero() {
             className="font-serif text-4xl md:text-6xl font-bold text-white leading-tight mb-6"
           >
             {(() => {
-              const h = hero.headline
+              const h = HERO.headline
               const idx = h.indexOf('Buy')
               if (idx > 0) return (<>{h.slice(0, idx)}<span className="text-shimmer">{h.slice(idx)}</span></>)
               return <span className="text-shimmer">{h}</span>
@@ -142,9 +89,17 @@ export default function Hero() {
           {/* Subheadline */}
           <motion.p
             variants={fadeUp} initial="hidden" animate="visible" custom={2}
-            className="text-base text-gray-300 leading-relaxed mb-10 max-w-2xl"
+            className="text-base text-gray-300 leading-relaxed mb-4 max-w-2xl"
           >
-            {hero.subheadline}
+            {HERO.subheadline}
+          </motion.p>
+
+          {/* Supporting line */}
+          <motion.p
+            variants={fadeUp} initial="hidden" animate="visible" custom={2.5}
+            className="font-serif text-lg md:text-xl text-gold-300 font-semibold mb-10"
+          >
+            Your Family's Financial Future Start Here
           </motion.p>
 
           {/* CTA Buttons */}
@@ -153,10 +108,10 @@ export default function Hero() {
             className="flex flex-wrap justify-center gap-4 mb-14"
           >
             <Link to="/booking" className="btn-primary flex items-center gap-2">
-              <PlayIcon /> {hero.ctaPrimary}
+              <PlayIcon /> {HERO.ctaPrimary}
             </Link>
             <Link to="/services" className="btn-outline flex items-center gap-2">
-              {hero.ctaSecondary}
+              {HERO.ctaSecondary}
             </Link>
           </motion.div>
 
@@ -165,10 +120,14 @@ export default function Hero() {
             variants={fadeUp} initial="hidden" animate="visible" custom={4}
             className="flex flex-wrap justify-center gap-x-8 gap-y-3"
           >
-            {['Mortgages', 'Wealth Planning', 'Insurance'].map(label => (
+            {[
+              { label: 'Mortgages', Icon: HomeIcon },
+              { label: 'Wealth Planning', Icon: TrendingUpIcon },
+              { label: 'Insurance', Icon: InsuranceShieldIcon },
+            ].map(({ label, Icon }) => (
               <div key={label} className="flex items-center gap-2 text-gray-200">
                 <span className="w-6 h-6 bg-gold-500/15 border border-gold-500/30 rounded-full flex items-center justify-center text-gold-400">
-                  <CheckIcon />
+                  <Icon />
                 </span>
                 <span className="font-medium text-sm">{label}</span>
               </div>
